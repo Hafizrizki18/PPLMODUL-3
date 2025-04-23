@@ -6,16 +6,25 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
 
-class LogoutTest extends DuskTestCase
+class logoutTest extends DuskTestCase
 {
     /**
      * A Dusk test example.
+     * @group logout
      */
-    public function testExample(): void
+    public function testLogout(): void
     {
         $this->browse(function (Browser $browser) {
             $browser->visit('/')
-                    ->assertSee('Laravel');
+            ->clickLink('Log in')
+            ->assertSee('Email')
+            ->assertSee('Password')
+            ->type('email',  'hafizhtest@gmail.com')
+            ->type('password', '1202223231')
+            ->press('LOG IN')
+            ->waitFor('#click-dropdown')
+            ->click('#click-dropdown')
+            ->clickLink('Log Out');
         });
     }
 }

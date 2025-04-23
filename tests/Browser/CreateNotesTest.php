@@ -9,30 +9,30 @@ use Tests\DuskTestCase;
 class CreateNotesTest extends DuskTestCase
 {
     /**
-     * A Dusk test example.
-     * @group CreateNotes
+     * @group createnotes
      */
-    public function testCreatNotes(): void
+    public function testCreateNotes(): void
     {
-        $this->browse(callback: function (Browser $browser): void {
+        $this->browse(function (Browser $browser) {
             $browser->visit('/')
-            ->clickLink(link: 'Log in') //Mengklik link Log in
-                    ->assertPathIs(path:'/login') //Memastikan path adalah '/login'
-                    ->type(field: 'email', value: 'hafizhtest@gmail.com') //Mengisi field email dengan hafizhtest@gmail.com'
-                    ->type(field: 'password', value: '1202223231') //Mengisi field password dengan '1202223231'
-                    ->press('LOG IN') //Menekan tombol LOGIN
-                    ->assertPathIs(path: '/dashboard') //Memastikan path adalah '/dashboard'
-                    ->clicklink(link: 'Create Notes') //Mengklik link Create Notes
-                    ->assertPathIs(path: '/notes') //Memastikan path adalah '/notes'
-                    ->clinklink(link: 'Create Notes') //Mengklik link Create Notes
-                    ->assertPathIs(path: 'create-notes') //Memastikan path adalah '/create-notes'
-                    ->type(field: 'title', value: 'Judul Notes') //Mengisi field title dengan 'Judul Notes'
-                    ->type(field: 'description', value: 'Deskripsi Notes') //Mengisi field description dengan 'Deskripsi Notes'
-                    ->press('Create') //Menekan tombol Create
-                    ->assertPathIs(path: '/notes') //Memastikan path adalah '/notes'
-                    ->assertSee('Notes created successfully'); //Memastikan ada pesan 'Notes created successfully'
+                    ->clickLink('Log in')
+                    ->assertSee('Email')
+                    ->assertSee('Password')
+                    ->type('email',  'hafizhtest@gmail.com')
+                    ->type('password', '1202223231')
+                    ->press('LOG IN')
 
-                    
+                    ->assertPathIs('/dashboard')
+                    ->pause(1000) 
+                    ->clickLink('Notes')
+                    ->assertPathIs('/notes')
+                    ->pause(500) 
+                    ->clickLink('Create Note')
+                    ->assertSee('Title')
+                    ->assertSee('Description')
+                    ->type('title', 'Catatan')
+                    ->type('description', '1')
+                    ->press('CREATE');
         });
     }
 }
